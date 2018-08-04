@@ -1,6 +1,6 @@
 ﻿(function(){
 	"use strict";
-	var Bot = { //объект бота
+	var Bot = { //объект бота1
 		role: '',
 		command: 0,
 		pulya: 0,
