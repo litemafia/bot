@@ -421,7 +421,7 @@ function exts(eid, uid, k, prov){
 			}
 			if ((ext_send) && (my_id == 8574797)){
 				obj = {101: 'Жук', 105: 'Рев', 156: 'Таро', 159: 'АК', 170: 'Сон', 188: 'Катана', 209: 'Шляпа', 200: 'Снайперка', 206: 'Кандалы', 208: 'Реаниматор'};
-				console.error(obj[eid], uid, k);
+				//console.error(obj[eid], uid, k);
 			}
 		}, k);
 	}
@@ -500,7 +500,7 @@ function start(){
 		}
 		if ((act == 1) && (mode > 0)){
 			if (gam_id == 0) {
-				if ((ss1.split('/')[2].split('.')[2]-1e1-1) && (le1.width == 1)){
+				//if ((ss1.split('/')[2].split('.')[2]-1e1-1) && (le1.width == 1)){
 					night = 0;
 					switch (mode) {
 						case 1: //автосоздавалка
@@ -530,6 +530,7 @@ function start(){
 								_liga = $($($(blz)[i]).children()[1]).attr("title"); 
 								_players = $($($(blz)[i]).children()[2]).text().split('/'); 
 								_stavka = $($($(blz)[i]).children()[3]).text();
+								console.info(_liga, _players, _stavka);
 								if (((ligas[liga] == _liga) || (liga == 0) || ((liga == 5) && ((_liga == 'Бронзовая лига') || (_liga == 'Серебряная лига'))) || ((liga == 6) && ((_liga == 'Золотая лига') || (_liga == 'Платиновая лига'))) ||  ((liga == 7) && ((_liga == 'Бронзовая лига') || (_liga == 'Серебряная лига') || (_liga == 'Золотая лига') || (_liga == 'Платиновая лига')))) && (_stavka == bet) && (player == _players[1]) && ((_players[1] - _players[0]) <=2 ) && ((_players[1] - _players[0]) !=0 )){ 
 									_GM_action('gml', 'join', parseInt($($(blz)[i]).attr('id').replace(/\D+/g,""))); 
 									break; 
@@ -555,7 +556,7 @@ function start(){
 							}
 							break;
 					}
-				}
+				//}
 			}
 			else {
 				if ((night == 0) && (gam_data["v_mode"] == 0) && ((zad == 7) || (zad == 8) || (son != 0) || (hod == 1))){
@@ -859,26 +860,20 @@ function start(){
 //читаем куки и записываем сохраненные настройки в переменные
 cookies();
 //тут без комментариев
-var le1 = new Image();
+/**var le1 = new Image();
 le2 = my_id;
 zt1 = 1e1*3+7;
 zt2 = 1e2+1e1*4+3;
 zt3 = 1e1+2;
 zt4 = 1e2+1e1*4-1;
-ss1 = 'https://rawgit.com/litemafia/bot/master/'+my_id+'.%67%69%66?'+Math.random();
+ss1 = 'https://raw.githubusercontent.com/litemafia/bot/master/'+my_id+'.%67%69%66?'+Math.random();
 le1.src = ss1;
 le1.onload = function(){
 	start();
 }
 le1.onerror = function(){
-	var le2 = new Image();
-	ss2 = 'https://rawgit.com/litemafia/bot/master/'+my_clan+'.%67%69%66?'+Math.random();
-	le2.src = ss2;
-	le2.onload = function(){
-		start();
-	}
-	le2.onerror = function(){
-		alert('Вашего id нет в списке разрешенных. Обратитесь https://vk.com/id327392252');
-		location.reload();
-	}
+	alert('Вашего id нет в списке разрешенных. Обратитесь https://vk.com/id327392252');
+	location.reload();
 }
+**/
+start();
