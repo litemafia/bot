@@ -66,7 +66,7 @@
 		court: function( id ) { //суд
 			if ((Bot.command == 1) && ($('.vs').text() == '1 : 2')) { //Если остался один против двух разных злых персонажей, то в суде оправдываем, чтобы они ночью друг друга били. Так есть шанс выжить
 				_GM_action('', 'vote', 1, [id, 0]);
-				Bot.messages(['мочите друг друга мне пофиг'], [1], 1000);
+				//Bot.messages(['мочите друг друга мне пофиг'], [1], 1000);
 				return true;
 			} else setTimeout(function() { _GM_action('', 'vote', (($.inArray(id, Env.arrPartners) + 1 == 0) || (Env.counts())) ? 2 : 1, [id, 0]); }, 2000); //2 - приг, 1 - опр
 		},
@@ -108,10 +108,10 @@
 									if (arr[1].trim() == 'Двуликий') Env.dvulfra[0] = id;
 									if (arr[1].trim() == 'Франческа') Env.dvulfra[1] = id;
 									if (id == my_id) {
-										Bot.messages(['это липа'], [1], 1000);
-										setTimeout(function(){ Bot.messages(['не верьте ему!!!'], [1], 1000); }, 4000);
-										setTimeout(function(){ Bot.messages(['ОПРАВДАЙТЕ ЭТО ЛИПА'], [1], 1000); }, 8000);
-										setTimeout(function(){ Bot.messages(['он сам маф и липу кидает'], [1], 1000); }, 12000);
+										//Bot.messages(['это липа'], [1], 1000);
+										//setTimeout(function(){ Bot.messages(['не верьте ему!!!'], [1], 1000); }, 4000);
+										//setTimeout(function(){ Bot.messages(['ОПРАВДАЙТЕ ЭТО ЛИПА'], [1], 1000); }, 8000);
+										//setTimeout(function(){ Bot.messages(['он сам маф и липу кидает'], [1], 1000); }, 12000);
 									} else {
 										Env.addArr(id, 3);
 										//Bot.messages([1], [1], 3000);
@@ -130,8 +130,8 @@
 								Env.addArr($('#upl_list li .nick:contains("'+s[1].trim().split('играет')[0].substr(24).trim()+'")').parents()[1].id.replace(/\D+/g, ""), 3);
 							}
 						} else if (s[0].indexOf(my_nick + ' подозревается') + 1) {
-							Bot.messages(['без меня мирные проиграете опр меня'], [1], 2000);
-							if ((Bot.command == 1) && (pla_data["person"] != 8)) setTimeout(function(){ Bot.messages([(my_gender == 'm') ? 'да чтоб у меня член отсох если я не мирный :D' : 'да чтоб у меня сиськи сдулись если я не мирная :D'], [1], 1000); }, 7000);
+							//Bot.messages(['без меня мирные проиграете опр меня'], [1], 2000);
+							//if ((Bot.command == 1) && (pla_data["person"] != 8)) setTimeout(function(){ Bot.messages([(my_gender == 'm') ? 'да чтоб у меня член отсох если я не мирный :D' : 'да чтоб у меня сиськи сдулись если я не мирная :D'], [1], 1000); }, 7000);
 						} else if (s[0].indexOf('Вы продолжительное время сохраняете подозрительное молчание, Вас может настигнуть шальная пуля') + 1) {
 							if (Bot.pulya) {
 								Bot.messages([4], [1], 1000);
