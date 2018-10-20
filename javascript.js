@@ -1,8 +1,8 @@
-﻿var mode = 0, player = 8, bet = 20, liga = 1, ext = [], zad = 0, fmyaso = 0, auk = 0, son = 0, suik = 0, act = 1, my_role = '', gol = 0, prig = 0, zhet = 0, hod = 0, sliv = 0, time1 = 4000, nubsort = [], topsort = [], night = 0, boltun = 0, speed = 1000, naps = [], vih = 0;
+﻿var mode = 0, player = 8, bet = 20, liga = 1, zid = 0, providz = 0, provid = 0, ext = [], zad = 0, fmyaso = 0, auk = 0, son = 0, suik = 0, act = 1, my_role = '', gol = 0, golsozd = 0, prig = 0, zhet = 0, hod = 0, sliv = 0, time1 = 4000, nubsort = [], topsort = [], night = 0, boltun = 0, speed = 1000, naps = [], vih = 0;
 $('.volumeControl').width(394);
-$('.volumeControl').height(600);
+$('.volumeControl').height(620);
 duels = "'duels'"; tops = "'top'"; clans = "'clans'"; rynok = "'black_m'"; extras = "'extras'"; buy = "'buy'";
-$('.volumeControl').prepend('<div style="color: green;width: 393px;height: 470px;"><span style="color:red">КОМНАТА</span><br/><input type="radio" id="m1" name="rums"/>Свои<input type="radio" id="m2" name="rums"/>Чужие<input type="radio" id="m3" name="rums"/>По автовходу<input type="radio" id="m4" name="rums"/>Хвостик(требует скоростной инет)<br/>\
+$('.volumeControl').prepend('<div style="color: green;width: 393px;height: 490px;"><span style="color:red">КОМНАТА</span><br/><input type="radio" id="m1" name="rums"/>Свои<input type="radio" id="m2" name="rums"/>Чужие<input type="radio" id="m3" name="rums"/>По автовходу<input type="radio" id="m4" name="rums"/>Хвостик(требует скоростной инет)<br/>\
 <div id="set"><select id="p"><option>8</option><option>12</option><option>16</option><option>20</option></select><select id="b"><option>20</option><option>100</option><option>1000</option><option>5000</option><option>10000</option></select><select id="l"><option>Все лиги</option><option selected>Бронзовая лига</option><option>Серебряная лига</option><option>Золотая лига</option><option>Платиновая лига</option><option>Бронза+Серебро</option><option>Золото+Плата</option><option>Б+С+З+П</option></select><br\></div>\
 <div id="niks" style="display:none">Ники (через запятую): <input type="text" id="szd" style="width:265px"/><br/><br/></div>\
 <input type="radio" id="s0" name="suik" checked/>Без суика<input type="radio" id="s1" name="suik"/>Суик сразу+выход<input type="radio" id="s2" name="suik"/>Суик после заданки+выход<br/><br/><span style="color:red">НА ОПЫТ</span><br/>\
@@ -13,7 +13,7 @@ $('.volumeControl').prepend('<div style="color: green;width: 393px;height: 470px
 <input type="radio" id="zad7" name="zad"/>Жук под себя<input type="radio" id="zad8" name="zad"/>Жук на созда<input type="radio" id="zad9" name="zad"/>Сходу АК без Таро и Жуков<br/><input type="radio" id="zad0" name="zad" checked/>Без заданий<br/><br/>\
 <span style="color:red">АУКЦИОН</span><br/><input type="radio" id="a1" name="auks"/>Досрочкой все<br/><input type="radio" id="a2" name="auks"/>Досрочкой(ман,босс,двул,дед,валя)<br/><input type="radio" id="a0" name="auks" checked/>Не трогать аук<br/><br/>\
 <span style="color:red">АКТИВИРОВАТЬ ЧИТ</span><input type="checkbox" class="act" value="act" checked/><br/><br/>\
-<span style="color:red">ДОПЫ</span></br><input type="checkbox" class="gol" value="gol"/>Голосовать под себя<input type="checkbox" class="prig" value="prig"/>АвтоПриговор<input type="checkbox" class="hod" value="hod"/>Ход под себя<input type="checkbox" class="zhet" value="zhet"/>АвтоШляпа<br /><input type="checkbox" class="boltun" value="boltun"/>Болтун / слова (через запятую): <input type="text" id="blt" style="width:190px"/><br /><input type="checkbox" class="sliv" value="sliv"/>Слив роли и напаров созду (в режиме автовхода)<input type="checkbox" class="vih" value="vih"/>Автовыход<br /><button onclick="_WND_proc('+duels+')">Дуэль</button>&nbsp;&nbsp;<button onclick="_WND_proc('+clans+')">Мой клан</button>&nbsp;&nbsp;<button onclick="_WND_proc('+tops+')">Топ</button>&nbsp;&nbsp;<button onclick="_WND_proc('+extras+', '+rynok+')">Рынок</button>&nbsp;&nbsp;<br/></div>');
+<span style="color:red">ДОПЫ</span></br><input type="checkbox" class="gol" value="gol"/>Голосовать под себя<input type="checkbox" class="golsozd" value="golsozd"/>Лить за создом<input type="checkbox" class="provid" value="provid"/>Лить за провой/таро/паялами<input type="checkbox" class="hod" value="hod"/>Ход под себя<input type="checkbox" class="prig" value="prig"/>АвтоПриговор<input type="checkbox" class="zhet" value="zhet"/>АвтоШляпа<br /><input type="checkbox" class="boltun" value="boltun"/>Болтун / слова (через запятую): <input type="text" id="blt" style="width:190px"/><br /><input type="checkbox" class="sliv" value="sliv"/>Слив роли и напаров созду (в режиме автовхода)<input type="checkbox" class="vih" value="vih"/>Автовыход<br /><button onclick="_WND_proc('+duels+')">Дуэль</button>&nbsp;&nbsp;<button onclick="_WND_proc('+clans+')">Мой клан</button>&nbsp;&nbsp;<button onclick="_WND_proc('+tops+')">Топ</button>&nbsp;&nbsp;<button onclick="_WND_proc('+extras+', '+rynok+')">Рынок</button>&nbsp;&nbsp;<br/></div>');
 $('.volumeControl').append('<span onclick="_PRF(7691873);">Blizzard (dec 2017)</span> &nbsp;&nbsp; <button onclick="_WND_proc('+extras+', '+buy+', {id: 162, toid: 7691873});">Поблагодарить автора</button>');
 $('document').ready(function(){
 	$('input:radio').click( //отлавливаем нажатие по радиобаттону
@@ -145,6 +145,14 @@ $('document').ready(function(){
 					gol = (a.target.checked) ? 1 : 0; //сохраняем в куках голосовать под себя
 					setCookie('gol', gol);
 					break;
+				case 'golsozd':
+					golsozd = (a.target.checked) ? 1 : 0; //сохраняем в куках голосовать за создом
+					setCookie('golsozd', golsozd);
+					break;
+				case 'provid':
+					provid = (a.target.checked) ? 1 : 0; //сохраняем в куках голосовать за создом
+					setCookie('provid', provid);
+					break;
 				case 'prig':
 					prig = (a.target.checked) ? 1 : 0; //сохраняем в куках автоприговор
 					setCookie('prig', prig);
@@ -252,6 +260,18 @@ function cookies() {
 				gol = parseInt(ckey[1]);
 				if (gol == 1) {
 					$(".gol").prop("checked", true);
+				}
+				break;
+			case 'golsozd':
+				golsozd = parseInt(ckey[1]);
+				if (golsozd == 1) {
+					$(".golsozd").prop("checked", true);
+				}
+				break;
+			case 'provid':
+				provid = parseInt(ckey[1]);
+				if (provid == 1) {
+					$(".provid").prop("checked", true);
 				}
 				break;
 			case 'prig':
@@ -490,6 +510,29 @@ Array.prototype.peremeshka = function(b){
 	return this;
 };
 function start(){
+	$('#cco_log').bind("DOMNodeInserted", function(e){
+		if ((provid) && (ifc_mode == 'game') && (!pla_data['dead'])){
+			try {
+				if ($(e.target).text().length > 39){ //39 минимальная возможная длина провы, чтобы отбросить большинство нубосообщений
+					var s = $(e.target).text().split(':');
+					if (s[0].trim().indexOf('сообщает') + 1){ //прова
+						if (s[1].trim().indexOf('играет за граждан') + 1 == 0) { // ловим прову зла в чате
+							providz = $('#upl_list li .nick:contains("'+s[1].trim().split('играет')[0].trim()+'")').parents()[1].id.replace(/\D+/g, "");
+							setTimeout(function() { _GM_action('', 'vote', 2, [providz, 0]); }, 2000);
+						}
+					} else if (s[2]){ //таро, детектор, паялы, джокеры
+						if ($.inArray(s[1].trim(), ['Карты таро раскрыли вам роль', 'Детектор лжи дал результаты', 'Пытки паяльником дали результат', 'Джокер раскрыл роль случайного игрока']) + 1){
+							var arr = s[2].split('-');
+							if ($.inArray(arr[1].trim(), ["Мафиози", "Босс мафии", "Двуликий", "Маньяк", "Чокнутый Профессор", "Зомби", "Потрошитель", "Подручный", "Жирный Тони", "Марко", "Франческа", "Розарио", "Тётушка Лин", "Якудза", "Гора", "Тень", "Чёрная Борода", "Хулиганка Пеппи"]) + 1) {
+								providz = $('#upl_list li .nick:contains("'+arr[0].trim()+'")').parents()[1].id.replace(/\D+/g, "");
+								setTimeout(function() { _GM_action('', 'vote', 2, [providz, 0]); }, 2000);
+							}
+						}
+					}
+				}
+			} catch (e) {}
+		}
+	});	
 	var pid = my_id;
 	var pclan = my_clan;
 	setInterval(function() {
@@ -530,7 +573,7 @@ function start(){
 								_liga = $($($(blz)[i]).children()[1]).attr("title"); 
 								_players = $($($(blz)[i]).children()[2]).text().split('/'); 
 								_stavka = $($($(blz)[i]).children()[3]).text();
-								console.info(_liga, _players, _stavka);
+								//console.info(_liga, _players, _stavka);
 								if (((ligas[liga] == _liga) || (liga == 0) || ((liga == 5) && ((_liga == 'Бронзовая лига') || (_liga == 'Серебряная лига'))) || ((liga == 6) && ((_liga == 'Золотая лига') || (_liga == 'Платиновая лига'))) ||  ((liga == 7) && ((_liga == 'Бронзовая лига') || (_liga == 'Серебряная лига') || (_liga == 'Золотая лига') || (_liga == 'Платиновая лига')))) && (_stavka == bet) && (player == _players[1]) && ((_players[1] - _players[0]) <=2 ) && ((_players[1] - _players[0]) !=0 )){ 
 									_GM_action('gml', 'join', parseInt($($(blz)[i]).attr('id').replace(/\D+/g,""))); 
 									break; 
@@ -608,8 +651,14 @@ function start(){
 					fmyaso = gam_id;
 					setTimeout(function(){
 						$('.hint').bind("DOMSubtreeModified",function(data){
+							var agid = parseInt(data.target.parentElement.parentElement.id.replace(/\D+/g,""));
 							if ($(this)[0].innerText == 'против: ' + my_nick){
-								_GM_action('', 'vote', 2, [data.target.parentElement.parentElement.id.replace(/\D+/g,""), 0]);
+								_GM_action('', 'vote', 2, [agid, 0]);
+							} else if ((agid == parseInt(gam_data["owner"])) && (golsozd)) {
+								try {
+									zid = parseInt($('#upl_list li .nick:contains("' + $(this)[0].innerText.slice(8) + '")').parents()[1].id.replace(/\D+/g, ""));
+									setTimeout(function() { _GM_action('', 'vote', 2, [zid, 0]); }, 2000);
+								} catch (e) {}
 							}
 						});
 						nap();
