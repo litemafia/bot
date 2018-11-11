@@ -904,7 +904,7 @@ function start(){
 							break;
 						case 2: //определенные ауки досрочно
 							role = $('.roleName').text();
-							if ($('#roles').val().split(',').indexOf(role) != -1){ 
+							if ($('#roles').val().indexOf(role) + 1){ 
 								$('.underline').click();
 								console.info('AUK KOM');
 							}
