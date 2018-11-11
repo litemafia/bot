@@ -7,7 +7,7 @@ $('.volumeControl').prepend('<div style="color: green;width: 393px;height: 490px
 <div id="niks" style="display:none">Ники (через запятую): <input type="text" id="szd" style="width:265px"/><br/><br/></div>\
 <input type="radio" id="s0" name="suik" checked/>Без суика<input type="radio" id="s1" name="suik"/>Суик сразу+выход<input type="radio" id="s2" name="suik"/>Суик после заданки+выход<br/><br/><span style="color:red">НА ОПЫТ</span><br/>\
 <input type="checkbox" id="e1" class="ext" value="1"/>Реаниматор<input type="checkbox" id="e2" class="ext" value="2"/>Рев<input type="checkbox" id="e3" class="ext" value="3"/>Катана<input type="checkbox" id="e4" class="ext" value="4"/>Снайперка<br/><br/>\
-<span style="color:red">ЗАДАНИЯ</span><br/><input type="radio" id="son1" name="son"/>Снотворка(ман)<input type="radio" id="son2" name="son"/>Снотворка<input type="radio" id="son0" name="son" checked/>Без снотворки<br/><br/>\
+<span style="color:red">ЗАДАНИЯ</span><br/><input type="radio" id="son1" name="son"/>Снотворка(ман, проф, босс, двул, маф)<input type="radio" id="son2" name="son"/>Снотворка<input type="radio" id="son0" name="son" checked/>Без снотворки<br/><br/>\
 <input type="radio" id="zad1" name="zad"/>Таро в нубов+AK<input type="radio" id="zad2" name="zad"/>AK+Таро в нубов<input type="radio" id="zad3" name="zad"/>Таро в нубов без АК<br/>\
 <input type="radio" id="zad5" name="zad"/>AK+Таро под себя<input type="radio" id="zad6" name="zad"/>Таро под себя<br/>\
 <input type="radio" id="zad7" name="zad"/>Жук под себя<input type="radio" id="zad8" name="zad"/>Жук на созда<input type="radio" id="zad9" name="zad"/>Сходу АК без Таро и Жуков<br/><input type="radio" id="zad0" name="zad" checked/>Без заданий<br/><br/>\
@@ -910,30 +910,30 @@ function start(){
 					switch (auk) {
 						case 1: //все ауки досрочно
 							$('.underline').click();
-							console.info('AUK ALL');
+							//console.info('AUK ALL');
 							break;
 						case 2: //определенные ауки досрочно
 							role = $('.roleName').text();
 							if ($('#roles').val().indexOf(role) + 1){ 
 								$('.underline').click();
-								console.info('AUK KOM');
+								//console.info('AUK KOM');
 							}
 							break;
 					}
 				} else if ((gam_data["v_mode"] == 0) && (son > 0)){
 					if (nightExt == 0){
 						switch (son) {
-							case 1: 
-								if (my_role == 'Маньяк'){
+							case 1: //
+								if ('Маньяк, Чокнутый Профессор, Мафиози, Двуликий, Босс мафии'.indexOf(my_role) + 1){
 									_GM_action('', 'ext_act', 170);
-									console.info('SON MAN');
+									//console.info('SON MAN');
 									nightExt = 1;
 								}
 								break;
 							case 2: 
 								_GM_action('', 'ext_act', 170);
 								nightExt = 1;
-								console.info('SON ALL');
+								//console.info('SON ALL');
 								break;
 						}
 					}
