@@ -894,7 +894,7 @@ function start(){
 			$($('.footerButtons').find('button')[0]).click();
 		}
 
-		if (((son > 0) || (auk > 0)) && (fastInt == 0)){
+		if (((son > 0) || (auk > 0)) && (fastInt == 0) && (act)){
 			fastInt = setInterval(function(){
 				if ((gam_data["v_mode"] == undefined) && (auk > 0)){
 					switch (auk) {
@@ -931,9 +931,10 @@ function start(){
 					nightExt = 0;
 				}			
 			}, 50);
-		} else if ((son == 0) && (auk == 0)){
+		} else if (((son == 0) && (auk == 0)) || (act == 0)){
 			nightExt = 0;
 			clearInterval(fastInt);
+			fastInt = 0;
 		}
 		
 	}, speed);
