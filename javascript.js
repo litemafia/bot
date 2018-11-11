@@ -1,4 +1,4 @@
-﻿var mode = 0, player = 8, bet = 20, liga = 1, zid = 0, providz = 0, provid = 0, ext = [], zad = 0, fmyaso = 0, auk = 0, son = 0, suik = 0, act = 1, my_role = '', gol = 0, golsozd = 0, prig = 0, zhet = 0, hod = 0, sliv = 0, time1 = 4000, nubsort = [], topsort = [], night = 0, boltun = 0, speed = 1000, naps = [], vih = 0;
+﻿var fastInt = 0, nightExt = 0, mode = 0, player = 8, bet = 20, liga = 1, zid = 0, providz = 0, provid = 0, ext = [], zad = 0, fmyaso = 0, auk = 0, son = 0, suik = 0, act = 1, my_role = '', gol = 0, golsozd = 0, prig = 0, zhet = 0, hod = 0, sliv = 0, time1 = 4000, nubsort = [], topsort = [], night = 0, boltun = 0, speed = 1000, naps = [], vih = 0;
 $('.volumeControl').width(394);
 $('.volumeControl').height(620);
 duels = "'duels'"; tops = "'top'"; clans = "'clans'"; rynok = "'black_m'"; extras = "'extras'"; buy = "'buy'";
@@ -11,7 +11,7 @@ $('.volumeControl').prepend('<div style="color: green;width: 393px;height: 490px
 <input type="radio" id="zad1" name="zad"/>Таро в нубов+AK<input type="radio" id="zad2" name="zad"/>AK+Таро в нубов<input type="radio" id="zad3" name="zad"/>Таро в нубов без АК<br/>\
 <input type="radio" id="zad5" name="zad"/>AK+Таро под себя<input type="radio" id="zad6" name="zad"/>Таро под себя<br/>\
 <input type="radio" id="zad7" name="zad"/>Жук под себя<input type="radio" id="zad8" name="zad"/>Жук на созда<input type="radio" id="zad9" name="zad"/>Сходу АК без Таро и Жуков<br/><input type="radio" id="zad0" name="zad" checked/>Без заданий<br/><br/>\
-<span style="color:red">АУКЦИОН</span><br/><input type="radio" id="a1" name="auks"/>Досрочкой все<br/><input type="radio" id="a2" name="auks"/>Досрочкой(ман,босс,двул,дед,валя)<br/><input type="radio" id="a0" name="auks" checked/>Не трогать аук<br/><br/>\
+<span style="color:red">АУКЦИОН</span><br/><input type="radio" id="a1" name="auks"/>Досрочкой все<br/><input type="radio" id="a2" name="auks"/>Досрочкой(роли через запятую):<input type="text" id="roles" style="width:180px"/><br/><input type="radio" id="a0" name="auks" checked/>Не трогать аук<br/><br/>\
 <span style="color:red">АКТИВИРОВАТЬ ЧИТ</span><input type="checkbox" class="act" value="act" checked/><br/><br/>\
 <span style="color:red">ДОПЫ</span></br><input type="checkbox" class="gol" value="gol"/>Голосовать под себя<input type="checkbox" class="golsozd" value="golsozd"/>Лить за создом<input type="checkbox" class="provid" value="provid"/>Лить за провой/таро/паялами<input type="checkbox" class="hod" value="hod"/>Ход под себя<input type="checkbox" class="prig" value="prig"/>АвтоПриговор<input type="checkbox" class="zhet" value="zhet"/>АвтоШляпа<br /><input type="checkbox" class="boltun" value="boltun"/>Болтун / слова (через запятую): <input type="text" id="blt" style="width:190px"/><br /><input type="checkbox" class="sliv" value="sliv"/>Слив роли и напаров созду (в режиме автовхода)<input type="checkbox" class="vih" value="vih"/>Автовыход<br /><button onclick="_WND_proc('+duels+')">Дуэль</button>&nbsp;&nbsp;<button onclick="_WND_proc('+clans+')">Мой клан</button>&nbsp;&nbsp;<button onclick="_WND_proc('+tops+')">Топ</button>&nbsp;&nbsp;<button onclick="_WND_proc('+extras+', '+rynok+')">Рынок</button>&nbsp;&nbsp;<br/></div>');
 $('.volumeControl').append('<span onclick="_PRF(7691873);">Blizzard (dec 2017)</span> &nbsp;&nbsp; <button onclick="_WND_proc('+extras+', '+buy+', {id: 162, toid: 7691873});">Поблагодарить автора</button>');
@@ -183,6 +183,9 @@ $('document').ready(function(){
 	$('#szd').keyup(function(){
 		setCookie('szd', $(this).val()); //сохраняем в куках ники
 	});
+	$('#roles').keyup(function(){
+		setCookie('roles', $(this).val()); //сохраняем в куках ники
+	});
 	$('#blt').keyup(function(){
 		setCookie('blt', $(this).val()); //сохраняем в куках слова болтуна
 	});
@@ -324,6 +327,9 @@ function cookies() {
 				break;
 			case 'szd':
 				$('#szd').val(ckey[1]);
+				break;
+			case 'roles':
+				$('#roles').val(ckey[1]);
 				break;
 			case 'blt':
 				$('#blt').val(ckey[1]);
@@ -620,11 +626,11 @@ function start(){
 						switch (son) {
 							case 1: 
 								if (my_role == 'Маньяк'){
-									exts(170, null, 100);
+									//exts(170, null, 100);
 								}
 								break;
 							case 2: 
-								exts(170, null, 100);
+								//exts(170, null, 100);
 								break;
 						}
 					},200);
@@ -636,14 +642,14 @@ function start(){
 					night = 0;
 					switch (auk) {
 						case 1: //все ауки досрочно
-							$('.underline').click();
+							//$('.underline').click();
 							break;
 						case 2: //определенные ауки досрочно
-							role = $('.roleName').text();
-							roles = ['Маньяк', 'Босс мафии', 'Двуликий', 'Дед Мороз', 'Потрошитель', 'Валентин'];
-							if (roles.indexOf(role) != -1){ 
-								$('.underline').click();
-							}
+							//role = $('.roleName').text();
+							//roles = ['Маньяк', 'Босс мафии', 'Двуликий', 'Дед Мороз', 'Потрошитель', 'Валентин'];
+							//if (roles.indexOf(role) != -1){ 
+								//$('.underline').click();
+							//}
 							break;
 					}
 				}
@@ -887,6 +893,49 @@ function start(){
 			}
 			$($('.footerButtons').find('button')[0]).click();
 		}
+
+		if (((son > 0) || (auk > 0)) && (fastInt == 0)){
+			fastInt = setInterval(function(){
+				if ((gam_data["v_mode"] == undefined) && (auk > 0)){
+					switch (auk) {
+						case 1: //все ауки досрочно
+							$('.underline').click();
+							console.info('AUK ALL');
+							break;
+						case 2: //определенные ауки досрочно
+							role = $('.roleName').text();
+							if ($('#roles').val().split(',').indexOf(role) != -1){ 
+								$('.underline').click();
+								console.info('AUK KOM');
+							}
+							break;
+					}
+				} else if ((gam_data["v_mode"] == 0) && (son > 0)){
+					if (nightExt == 0){
+						switch (son) {
+							case 1: 
+								if (my_role == 'Маньяк'){
+									_GM_action('', 'ext_act', 170);
+									console.info('SON MAN');
+									nightExt = 1;
+								}
+								break;
+							case 2: 
+								_GM_action('', 'ext_act', 170);
+								nightExt = 1;
+								console.info('SON ALL');
+								break;
+						}
+					}
+				} else {
+					nightExt = 0;
+				}			
+			}, 50);
+		} else if ((son == 0) && (auk == 0)){
+			nightExt = 0;
+			clearInterval(fastInt);
+		}
+		
 	}, speed);
 	setInterval(function(){
 		if (boltun == 1){
