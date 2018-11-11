@@ -896,7 +896,7 @@ function start(){
 
 		if (((son > 0) || (auk > 0)) && (fastInt == 0) && (act)){
 			fastInt = setInterval(function(){
-				if ((gam_data["v_mode"] == undefined) && (auk > 0)){
+				if ((gam_data["v_mode"] == undefined) && (auk > 0) && (ifc_mode == 'room')){
 					switch (auk) {
 						case 1: //все ауки досрочно
 							$('.underline').click();
