@@ -1,4 +1,4 @@
-﻿var fastInt = 0, nightExt = 0, mode = 0, player = 8, bet = 20, liga = 1, zid = 0, providz = 0, provid = 0, ext = [], zad = 0, fmyaso = 0, auk = 0, son = 0, suik = 0, act = 1, my_role = '', gol = 0, golsozd = 0, prig = 0, zhet = 0, hod = 0, sliv = 0, time1 = 4000, nubsort = [], topsort = [], night = 0, boltun = 0, speed = 1000, naps = [], vih = 0;
+﻿var fastInt = 0, nightExt = 0, mode = 0, player = 8, bet = 20, liga = 1, zid = 0, providz = 0, provid = 0, ext = [], zad = 0, fmyaso = 0, auk = 0, son = 0, suik = 0, act = 1, my_role = '', gol = 0, golsozd = 0, prig = 0, zhet = 0, hod = 0, otvet = 0, sliv = 0, time1 = 4000, nubsort = [], topsort = [], night = 0, boltun = 0, speed = 1000, naps = [], vih = 0;
 $('.volumeControl').width(394);
 $('.volumeControl').height(620);
 duels = "'duels'"; tops = "'top'"; clans = "'clans'"; rynok = "'black_m'"; extras = "'extras'"; buy = "'buy'";
@@ -13,7 +13,7 @@ $('.volumeControl').prepend('<div style="color: green;width: 393px;height: 490px
 <input type="radio" id="zad7" name="zad"/>Жук под себя<input type="radio" id="zad8" name="zad"/>Жук на созда<input type="radio" id="zad9" name="zad"/>Сходу АК без Таро и Жуков<br/><input type="radio" id="zad0" name="zad" checked/>Без заданий<br/><br/>\
 <span style="color:red">АУКЦИОН</span><br/><input type="radio" id="a1" name="auks"/>Досрочкой все<br/><input type="radio" id="a2" name="auks"/>Досрочкой(роли через запятую):<input type="text" id="roles" style="width:180px"/><br/><input type="radio" id="a0" name="auks" checked/>Не трогать аук<br/><br/>\
 <span style="color:red">АКТИВИРОВАТЬ ЧИТ</span><input type="checkbox" class="act" value="act" checked/><br/><br/>\
-<span style="color:red">ДОПЫ</span></br><input type="checkbox" class="gol" value="gol"/>Голосовать под себя<input type="checkbox" class="golsozd" value="golsozd"/>Лить за создом<input type="checkbox" class="provid" value="provid"/>Лить за провой/таро/паялами<input type="checkbox" class="hod" value="hod"/>Ход под себя<input type="checkbox" class="prig" value="prig"/>АвтоПриговор<input type="checkbox" class="zhet" value="zhet"/>АвтоШляпа<br /><input type="checkbox" class="boltun" value="boltun"/>Болтун / слова (через запятую): <input type="text" id="blt" style="width:190px"/><br /><input type="checkbox" class="sliv" value="sliv"/>Слив роли и напаров созду (в режиме автовхода)<input type="checkbox" class="vih" value="vih"/>Автовыход<br /><button onclick="_WND_proc('+duels+')">Дуэль</button>&nbsp;&nbsp;<button onclick="_WND_proc('+clans+')">Мой клан</button>&nbsp;&nbsp;<button onclick="_WND_proc('+tops+')">Топ</button>&nbsp;&nbsp;<button onclick="_WND_proc('+extras+', '+rynok+')">Рынок</button>&nbsp;&nbsp;<br/></div>');
+<span style="color:red">ДОПЫ</span></br><input type="checkbox" class="gol" value="gol"/>Голосовать под себя<input type="checkbox" class="golsozd" value="golsozd"/>Лить за создом<input type="checkbox" class="provid" value="provid"/>Лить за провой/таро/паялами<input type="checkbox" class="hod" value="hod"/>Ход под себя<input type="checkbox" class="otvet" value="otvet"/>Тык в ответ<input type="checkbox" class="prig" value="prig"/>АвтоПриговор<input type="checkbox" class="zhet" value="zhet"/>АвтоШляпа<br /><input type="checkbox" class="boltun" value="boltun"/>Болтун / слова (через запятую): <input type="text" id="blt" style="width:190px"/><br /><input type="checkbox" class="sliv" value="sliv"/>Слив роли и напаров созду (в режиме автовхода)<input type="checkbox" class="vih" value="vih"/>Автовыход<br /><button onclick="_WND_proc('+duels+')">Дуэль</button>&nbsp;&nbsp;<button onclick="_WND_proc('+clans+')">Мой клан</button>&nbsp;&nbsp;<button onclick="_WND_proc('+tops+')">Топ</button>&nbsp;&nbsp;<button onclick="_WND_proc('+extras+', '+rynok+')">Рынок</button>&nbsp;&nbsp;<br/></div>');
 $('.volumeControl').append('<span onclick="_PRF(7691873);">Blizzard (dec 2017)</span> &nbsp;&nbsp; <button onclick="_WND_proc('+extras+', '+buy+', {id: 162, toid: 7691873});">Поблагодарить автора</button>');
 $('document').ready(function(){
 	$('input:radio').click( //отлавливаем нажатие по радиобаттону
@@ -165,6 +165,10 @@ $('document').ready(function(){
 					hod = (a.target.checked) ? 1 : 0; //сохраняем в куках ход
 					setCookie('hod', hod);
 					break;
+				case 'otvet':
+					otvet = (a.target.checked) ? 1 : 0; //сохраняем в куках otvet
+					setCookie('otvet', otvet);
+					break;
 				case 'sliv':
 					sliv = (a.target.checked) ? 1 : 0; //сохраняем в куках ход
 					setCookie('sliv', sliv);
@@ -293,6 +297,12 @@ function cookies() {
 				hod = parseInt(ckey[1]);
 				if (hod == 1) {
 					$(".hod").prop("checked", true);
+				}
+				break;
+			case 'otvet':
+				otvet = parseInt(ckey[1]);
+				if (otvet == 1) {
+					$(".otvet").prop("checked", true);
 				}
 				break;
 			case 'sliv':
@@ -659,7 +669,7 @@ function start(){
 						$('.hint').bind("DOMSubtreeModified",function(data){
 							var agid = parseInt(data.target.parentElement.parentElement.id.replace(/\D+/g,""));
 							if ($(this)[0].innerText == 'против: ' + my_nick){
-								_GM_action('', 'vote', 2, [agid, 0]);
+								if (otvet == 1) _GM_action('', 'vote', 2, [agid, 0]);
 							} else if ((agid == parseInt(gam_data["owner"])) && (golsozd)) {
 								try {
 									zid = parseInt($('#upl_list li .nick:contains("' + $(this)[0].innerText.slice(8) + '")').parents()[1].id.replace(/\D+/g, ""));
