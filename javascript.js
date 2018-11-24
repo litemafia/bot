@@ -14,7 +14,7 @@ $('.volumeControl').prepend('<div style="color: green;width: 393px;height: 490px
 <span style="color:red">АУКЦИОН</span><br/><input type="radio" id="a1" name="auks"/>Досрочкой все<br/><input type="radio" id="a2" name="auks"/>Досрочкой(роли через запятую):<input type="text" id="roles" style="width:180px"/><br/><input type="radio" id="a0" name="auks" checked/>Не трогать аук<br/><br/>\
 <span style="color:red">АКТИВИРОВАТЬ ЧИТ</span><input type="checkbox" class="act" value="act" checked/><br/><br/>\
 <span style="color:red">ДОПЫ</span></br><input type="checkbox" class="gol" value="gol"/>Голосовать под себя<input type="checkbox" class="golsozd" value="golsozd"/>Лить за создом<input type="checkbox" class="provid" value="provid"/>Лить за провой/таро/паялами<input type="checkbox" class="hod" value="hod"/>Ход под себя<input type="checkbox" class="otvet" value="otvet"/>Тык в ответ<input type="checkbox" class="prig" value="prig"/>АвтоПриговор<input type="checkbox" class="zhet" value="zhet"/>АвтоШляпа<br /><input type="checkbox" class="boltun" value="boltun"/>Болтун / слова (через запятую): <input type="text" id="blt" style="width:190px"/><br /><input type="checkbox" class="sliv" value="sliv"/>Слив роли и напаров созду (в режиме автовхода)<input type="checkbox" class="vih" value="vih"/>Автовыход<br /><button onclick="_WND_proc('+duels+')">Дуэль</button>&nbsp;&nbsp;<button onclick="_WND_proc('+clans+')">Мой клан</button>&nbsp;&nbsp;<button onclick="_WND_proc('+tops+')">Топ</button>&nbsp;&nbsp;<button onclick="_WND_proc('+extras+', '+rynok+')">Рынок</button>&nbsp;&nbsp;<br/></div>');
-$('.volumeControl').append('<span onclick="_PRF(7691873);">Blizzard (dec 2017)</span> &nbsp;&nbsp; <button onclick="_WND_proc('+extras+', '+buy+', {id: 162, toid: 7691873});">Поблагодарить автора</button>');
+$('.volumeControl').append('<span onclick="_PRF(7691873);">Blizzard (dec 2017)</span> &nbsp;&nbsp; <button onclick="_PRF(7691873);_WND_proc('+extras+', '+buy+', {id: 162, toid: 7691873});">Поблагодарить автора</button>');
 $('document').ready(function(){
 	$('input:radio').click( //отлавливаем нажатие по радиобаттону
 		function(a){
@@ -901,7 +901,9 @@ function start(){
 					_DLG('exit', 0);
 				}
 			}
-			$($('.footerButtons').find('button')[0]).click();
+			if ($('#pp_spower')[0] == undefined){
+				$($('.footerButtons').find('button')[0]).click();
+			}
 		}
 
 		if (((son > 0) || (auk > 0)) && (fastInt == 0) && (act)){
