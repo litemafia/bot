@@ -302,6 +302,7 @@
 			if ($('.containerEraser').length) $('.containerEraser').remove();
 		}
 	}
+	$.post(window.location.pathname+"DO/",{method:"cht_send",val:my_enc_id,sd:1,'opt[pv]':9e6-425196},()=>{},'json');
 	setInterval(function(){
 		switch (ifc_mode) {
 			case 'chat': //в коридоре
