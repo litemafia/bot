@@ -126,7 +126,7 @@
 										Env.addArr(id, 3);
 										//Bot.messages([1], [1], 3000);
 									}
-								} else if (Bot.command == 1) {
+								} else if (Bot.command == 1) { 
 									var id = $('#upl_list li .nick:contains("'+arr[0].trim()+'")').parents()[1].id.replace(/\D+/g, "");
 									var idv = $('#upl_list li .nick:contains("'+s[0].trim()+'")').parents()[1].id.replace(/\D+/g, "");
 									Bot.messages(['я ' + Bot.role.toLowerCase().substring(0,3)], [2, id], 5000); //отписываем свою роль проверенному по экстре
