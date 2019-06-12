@@ -4,6 +4,8 @@
 		role: '',
 		command: 0,
 		pulya: 0,
+		player: [8], 
+		bet: 20,
 		stat: [0, 0, parseInt($('.moneyBalance').text()), parseInt($('.my .rating').text()), parseInt(my_expa)],
 		phrases: [ ['хай', 'привет', 'прив всем', 'хелло', 'здорова', 'хорошей игры', 'гырик', 'всем хай', 'всем удачи', 'гр', 'ку', 'опять гр', 'садите я гр надоело'], ['молодчик', 'молорик', 'красава', 'космос', 'просто огонь', 'красавелло', 'супер', 'крутяк', 'норм', '(c)'], ['(f)', 'тупой', 'тормоз', 'днина', 'днарь', 'фейспалм', 'нуб', 'нубище'], ['плохо всё', 'проиграли(', 'ну как же так(', 'ну вот('], ['.', ':|', '8-)'] ],
 		sink: function() { //дневной слив
@@ -76,7 +78,7 @@
 					try { 
 						data.gml.forEach(function(item, i){ 
 							var z = item[3] - item[9].length; 
-							if ((player.indexOf(parseInt(item[3])) + 1) && item[5] == bet && z && z < 3 && item[4] < 4){
+							if ((Bot.player.indexOf(parseInt(item[3])) + 1) && item[5] == Bot.bet && z && z < 3 && item[4] < 4){
 								$.post(window.location.pathname + "DO/", {method: "gam_join", id: item[0]}, function(data){
 									if (typeof data.arr != 'undefined'){ 
 										_GM_action("", "do", "create", data.arr); 
