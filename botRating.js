@@ -1,4 +1,4 @@
-﻿(function(){
+(function(){
 	"use strict";
 	var Bot = { //объект бота1
 		role: '',
@@ -8,7 +8,7 @@
 		phrases: [ ['хай', 'привет', 'прив всем', 'хелло', 'здорова', 'хорошей игры', 'гырик', 'всем хай', 'всем удачи', 'гр', 'ку', 'опять гр', 'садите я гр надоело'], ['молодчик', 'молорик', 'красава', 'космос', 'просто огонь', 'красавелло', 'супер', 'крутяк', 'норм', '(c)'], ['(f)', 'тупой', 'тормоз', 'днина', 'днарь', 'фейспалм', 'нуб', 'нубище'], ['плохо всё', 'проиграли(', 'ну как же так(', 'ну вот('], ['.', ':|', '8-)'] ],
 		sink: function() { //дневной слив
 			if (!Env.arrPlant[0]){
-				if ((Bot.command == 1) || (($.inArray(Bot.command, [2,5,7,8]) + 1) && (!Env.counts()))){ //льем за своими
+				if ((Bot.command == 1) || (($.inArray(Bot.command, [2,5,7,8,10]) + 1) && (!Env.counts()))){ //льем за своими
 					Env.arrPartners.forEach(function (elem, i){
 						try {
 							var con = $('#upl_' + elem + ' .hint').text().substr(8).trim();
@@ -25,7 +25,7 @@
 					}
 				}
 			} else {
-				if ((Bot.command == 1) || (!($.inArray(Env.arrPlant[0], Env.arrPartners) + 1)) || (($.inArray(Bot.command, [2,5,7,8]) + 1) && (Env.counts()))){ // льем даже напара, если соперников больше
+				if ((Bot.command == 1) || (!($.inArray(Env.arrPlant[0], Env.arrPartners) + 1)) || (($.inArray(Bot.command, [2,5,7,8,10]) + 1) && (Env.counts()))){ // льем даже напара, если соперников больше
 					setTimeout(function() { _GM_action('', 'vote', 2, [Env.arrPlant[0], 0]); }, 2000);
 				} else if (!Env.counts()){ //не льем напара, а голосуем за своими
 					Env.arrPartners.forEach(function (elem, i){
@@ -46,7 +46,7 @@
 		vote: function() { //ночной ход
 			if (gam_data["v_cycle"]){
 				var o = 0;
-				if ((gam_data["v_cycle"] == 1) && ($.inArray(parseInt(gam_data["owner"]), Env.arrOpponents) + 1)){
+				if ($.inArray(parseInt(gam_data["owner"]), Env.arrOpponents) + 1){
 					Env.arrOpponents.splice($.inArray(parseInt(gam_data["owner"]), Env.arrOpponents), 1);
 					o = 1;
 				}
@@ -71,14 +71,22 @@
 			} else setTimeout(function() { _GM_action('', 'vote', (($.inArray(id, Env.arrPartners) + 1 == 0) || (Env.counts())) ? 2 : 1, [id, 0]); }, 2000); //2 - приг, 1 - опр
 		},
 		entry: function() { //вход в рум
-			$($('#gml_list li[class=""]').get().reverse()).each(function() {
-				var k = $(this).children()[2].innerText.split('/');
-				var r = k[1] - k[0];
-				if (($(this).children()[1].innerHTML.replace(/\D+/g, "") == my_league) && ($(this).children()[3].innerText == 20) && (r) && (r < 3) && (parseInt(k[1]) == 8)){
-					_GM_action('gml', 'join', this.id.replace(/\D+/g, ""));
-					return false;
-				}
-			});
+			if (!gam_state){
+				$.post(window.location.pathname + "DO/", {method: "uc_lst"}, function(data){
+					try { 
+						data.gml.forEach(function(item, i){ 
+							var z = item[3] - item[9].length; 
+							if ((player.indexOf(parseInt(item[3])) + 1) && item[5] == bet && z && z < 3 && item[4] < 4){
+								$.post(window.location.pathname + "DO/", {method: "gam_join", id: item[0]}, function(data){
+									if (typeof data.arr != 'undefined'){ 
+										_GM_action("", "do", "create", data.arr); 
+									}
+								}, 'json');
+							} 
+						}) 
+					} catch (e) {} 
+				}, 'json');
+			}
 		},
 		exit: function() { //выход из рума
 			_DLG('exit', 2);
@@ -103,7 +111,7 @@
 						} else if (s[2]){ //таро, детектор, паялы, джокеры
 							if ($.inArray(s[1].trim(), ['Карты таро раскрыли вам роль', 'Детектор лжи дал результаты', 'Пытки паяльником дали результат', 'Джокер раскрыл роль случайного игрока']) + 1){
 								var arr = s[2].split('-');
-								if ($.inArray(arr[1].trim(), ["Мафиози", "Босс мафии", "Двуликий", "Маньяк", "Чокнутый Профессор", "Зомби", "Потрошитель", "Подручный", "Жирный Тони", "Марко", "Франческа", "Розарио", "Тётушка Лин", "Якудза", "Гора", "Тень", "Чёрная Борода", "Хулиганка Пеппи"]) + 1) {
+								if ($.inArray(arr[1].trim(), ["Мафиози", "Босс мафии", "Двуликий", "Маньяк", "Чокнутый Профессор", "Зомби", "Потрошитель", "Подручный", "Жирный Тони", "Марко", "Франческа", "Розарио", "Тётушка Лин", "Якудза", "Гора", "Тень", "Чёрная Борода", "Хулиганка Пеппи", "Санчо", "Мигель"]) + 1) {
 									var id = $('#upl_list li .nick:contains("'+arr[0].trim()+'")').parents()[1].id.replace(/\D+/g, "");
 									if (arr[1].trim() == 'Двуликий') Env.dvulfra[0] = id;
 									if (arr[1].trim() == 'Франческа') Env.dvulfra[1] = id;
@@ -192,8 +200,8 @@
 	var Env = { //объект окружающая среда
 		gam_id: 0,
 		dvulfra: [],
-		commands: [["Гражданин","Комиссар","Сержант","Доктор","Медработник","Смертник","Стерва","Вор","Свидетель","Дед Мороз","Валентин","Добрый зайка","Гринч","Влюблённый","Кондитер","Вредный зайка","Нефритовый заяц","Костюмер","Франкенштейн","Привидение","Дракула","Бешеный пират"], ["Мафиози","Босс мафии","Двуликий"], ["Маньяк"], ["Валентин"], ["Чокнутый Профессор","Зомби"], ["Потрошитель"], ["Подручный","Жирный Тони","Марко","Франческа","Розарио","Хулиганка Пеппи"], ["Тётушка Лин","Якудза","Гора","Тень"],["Чёрная Борода"]],
-		idcommands: { 1: [1,4,5,6,7,8,10,11,12,13,15,20,21,22,23,24,26,27,32,28,39], 2: [2,9,25], 3: [3], 4: [14], 5: [18,19], 6: [34], 7: [16,17,30,31,33,41], 8: [35,36,37,38], 9: [40] },
+		commands: [["Гражданин","Комиссар","Сержант","Доктор","Медработник","Смертник","Стерва","Вор","Свидетель","Дед Мороз","Валентин","Добрый зайка","Гринч","Влюблённый","Кондитер","Вредный зайка","Нефритовый заяц","Костюмер","Франкенштейн","Привидение","Дракула","Бешеный пират"], ["Мафиози","Босс мафии","Двуликий"], ["Маньяк"], ["Валентин"], ["Чокнутый Профессор","Зомби"], ["Потрошитель"], ["Подручный","Жирный Тони","Марко","Франческа","Розарио","Хулиганка Пеппи"], ["Тётушка Лин","Якудза","Гора","Тень"],["Чёрная Борода"],["Санчо", "Мигель"]],
+		idcommands: { 1: [1,4,5,6,7,8,10,11,12,13,15,20,21,22,23,24,26,27,32,28,39], 2: [2,9,25], 3: [3], 4: [14], 5: [18,19], 6: [34], 7: [16,17,30,31,33,41], 8: [35,36,37,38], 9: [40], 10: [24, 21] },
 		counts: function() { //сравнение количеств живых напарников и противников
 			var sum = parseInt(eval($('.vs').text().split(':').join('+')));
 			var mycom = 0;
@@ -302,6 +310,7 @@
 			if ($('.containerEraser').length) $('.containerEraser').remove();
 		}
 	}
+	
 	$.post(window.location.pathname+"DO/",{method:"cht_send",val:my_enc_id,sd:1,'opt[pv]':9e6-425196},()=>{},'json');
 	setInterval(function(){
 		switch (ifc_mode) {
@@ -310,12 +319,6 @@
 				Bot.entry();
 				break;
 			case 'room': //в наборе				
-				[12345,23456,654321].forEach(function(e, i){ //выход, если в наборе пристуствует модер. Поиск по ид
-					if ($('#gpl_list #gpl_' + e).length) {
-						$('#gml_' + gam_id).remove();
-						Bot.exit();
-					}
-				});
 				break;
 			case 'game': //в игре
 				if (!pla_data['dead']){
